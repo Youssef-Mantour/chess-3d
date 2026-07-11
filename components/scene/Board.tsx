@@ -23,15 +23,11 @@ export default function Board() {
 
   return (
     <group>
-      {/* Frame / border */}
-      <mesh position={[0, -0.16, 0]} receiveShadow castShadow>
-        <boxGeometry args={[9.2, 0.32, 9.2]} />
-        <meshStandardMaterial color={FRAME} roughness={0.6} metalness={0.15} />
-      </mesh>
-      {/* Inner bevel */}
-      <mesh position={[0, -0.02, 0]} receiveShadow>
-        <boxGeometry args={[8.3, 0.06, 8.3]} />
-        <meshStandardMaterial color="#1c130c" roughness={0.5} metalness={0.2} />
+      {/* Board body / frame — sits BELOW the square surface (top at y=-0.02)
+          so the 64 squares on top stay fully visible as a checkerboard. */}
+      <mesh position={[0, -0.24, 0]} receiveShadow castShadow>
+        <boxGeometry args={[9.2, 0.44, 9.2]} />
+        <meshStandardMaterial color={FRAME} roughness={0.5} metalness={0.1} />
       </mesh>
 
       {ALL_SQUARES.map((sq) => {

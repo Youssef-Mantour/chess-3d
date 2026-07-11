@@ -50,8 +50,8 @@ interface PieceProps {
   onFadeDone?: () => void;
 }
 
-const WHITE = { color: "#f0e8d6", roughness: 0.42, metalness: 0.12, emissive: "#5b4a1e" };
-const BLACK = { color: "#26262e", roughness: 0.5, metalness: 0.32, emissive: "#2a4a63" };
+const WHITE = { color: "#f4eddd", roughness: 0.4, metalness: 0.1, emissive: "#6b5824" };
+const BLACK = { color: "#454754", roughness: 0.52, metalness: 0.2, emissive: "#4a7ba6" };
 
 export default function Piece({
   type,
@@ -105,8 +105,9 @@ export default function Piece({
     const targetY = selected ? 0.28 : 0;
     g.position.y = THREE.MathUtils.damp(g.position.y, targetY, 12, delta);
 
-    // Selection / hover glow.
-    const want = selected ? 0.9 : hovered.current ? 0.35 : 0;
+    // Selection / hover glow, with a faint resting floor so pieces never read
+    // as pure black.
+    const want = selected ? 0.95 : hovered.current ? 0.45 : 0.14;
     material.emissiveIntensity = THREE.MathUtils.damp(
       material.emissiveIntensity,
       want,

@@ -33,12 +33,12 @@ export default function ChessScene() {
       gl={{ antialias: true, alpha: true }}
       onPointerMissed={() => deselect("__none__")}
     >
-      {/* Lighting */}
-      <ambientLight intensity={0.45} />
-      <hemisphereLight args={["#dfe9ff", "#3a2a1e", 0.5]} />
+      {/* Lighting — bright, even coverage so pieces read clearly from any angle */}
+      <ambientLight intensity={0.9} />
+      <hemisphereLight args={["#eaf1ff", "#4a3826", 0.9]} />
       <directionalLight
-        position={[6, 11, 6]}
-        intensity={1.25}
+        position={[6, 12, 6]}
+        intensity={2.0}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
@@ -50,8 +50,11 @@ export default function ChessScene() {
         shadow-camera-far={40}
         shadow-bias={-0.0004}
       />
-      <directionalLight position={[-7, 6, -5]} intensity={0.5} color="#8fb7ff" />
-      <pointLight position={[0, 6, 0]} intensity={0.35} />
+      {/* Cool rim from behind for separation */}
+      <directionalLight position={[-7, 7, -5]} intensity={0.9} color="#9fc2ff" />
+      {/* Warm fill from the camera side so piece fronts aren't in shadow */}
+      <directionalLight position={[0, 5, 9]} intensity={1.0} color="#fff2dc" />
+      <pointLight position={[0, 7, 0]} intensity={0.6} />
 
       {/* Board + pieces (rotated 180° when the board is flipped) */}
       <group rotation={[0, flipped ? Math.PI : 0, 0]}>
@@ -60,10 +63,10 @@ export default function ChessScene() {
       </group>
 
       <ContactShadows
-        position={[0, -0.32, 0]}
-        opacity={0.55}
+        position={[0, -0.46, 0]}
+        opacity={0.4}
         scale={16}
-        blur={2.4}
+        blur={2.6}
         far={6}
         resolution={1024}
         color="#000000"
